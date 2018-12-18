@@ -23,7 +23,7 @@ function liffInit() {
     let option;
 
     for (let i = 0; i < number; i++) {
-      option = typeof options[i].type !== "undefined" ? options[i] : {};
+      option = options[i] || {};
 
       actions.push({
         type: "uri",
