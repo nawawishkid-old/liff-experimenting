@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-html(lang="en")
+html.has-background-white-bis(lang="en")
     head
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
         script(src='vconsole.min.js')
         script var vconsole = new VConsole();
+        link(href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" rel="stylesheet" type="text/css")
         title Line LIFF Experimenting 
     body
-        .button-row
+        p#warn-message.notification.is-warning(style="display: none;")
+            | Sorry for the inconvenience. This app meant to be display on LIFF, not a generic browser web application. Please, visit 
+            a(href="line://app/1632266434-nNxB6Vv7") line://app/1632266434-nNxB6Vv7
+        .profile(style="margin: 2em 0;")
+            figure#profile-image.image.is-128x128.has-background-grey-lighter(style="margin: auto; margin-bottom: 1em; border-radius: 50%;")
+                img.is-rounded.is-invisible(alt="User profile picture")
+            p#profile-name.has-text-centered Nawawish
+        .button-row.level(style="flex-wrap: wrap;")
             each val in ['text', 'image', 'templateButton', 'templateConfirm', 'templateCarousel', 'templateImageCarousel', 'location']
-                button.send-message-button(data-message-type=val)= 'send ' + val
+                .level-item(style="margin: 1em;")
+                    button.button.is-outlined.is-link.send-message-button(data-message-type=val)= 'send ' + val
 
         script(src="https://d.line-scdn.net/liff/1.0/sdk.js")
         script(src="index.js")

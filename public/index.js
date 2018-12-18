@@ -1,9 +1,17 @@
 window.onload = () =>
-  liff.init(data => init(data), err => console.log("err: ", err));
+  liff.init(
+    data => init(data),
+    err => {
+      console.log("err: ", err);
+      document.getElementById("warn-message").style.display = "block";
+    }
+  );
 
 function init(data) {
   console.log("init()");
   console.log("data: ", data);
+
+  initProfileUi();
 
   const messages = getMessages();
 
@@ -15,6 +23,23 @@ function init(data) {
         liff.sendMessages(messages[node.dataset.messageType])
     )
   );
+}
+
+function initProfileUi() {
+  liff
+    .getProfile()
+    .then(profile => {
+      const { displayName, pictureUrl } = profile;
+      const profileImageDom = document.querySelector("#profile-image img");
+      const profileNameP = document.getElementById("profile-name");
+
+      profileNameP.textContent = displayName;
+      profileImageDom.src = pictureUrl;
+      profileImageDom.classList.remove('is-invisible');
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 function getMessages() {
@@ -118,19 +143,6 @@ function getHelpers() {
       }),
       validOptions
     );
-
-    for (let i = 0; i < number; i++) {
-      option = validOptions[i] || {};
-
-      actions.push({
-        type: "uri",
-        label: `option #${i + 1}`,
-        uri: ACTION_URI,
-        ...option
-      });
-    }
-
-    return actions;
   };
 
   const getImageMessage = url => ({
