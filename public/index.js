@@ -34,11 +34,6 @@ function liffInit() {
         },
         actions: [
           {
-            type: "postback",
-            label: "Buy",
-            data: "action=buy&itemid=123"
-          },
-          {
             type: "uri",
             label: "View detail",
             uri: "https://nawawish.me"
