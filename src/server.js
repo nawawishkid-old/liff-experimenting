@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const pug = require("pug");
 const DOMAIN_NAME = "https://liff-experimenting.heroku.com";
-const PORT = 5555;
+const PORT = 80;
 
 const mimetypes = {
   ".js": "text/javascript",
