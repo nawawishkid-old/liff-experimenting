@@ -36,15 +36,6 @@ function liffInit() {
     }
   };
 
-  [...document.getElementsByClassName("send-message-button")].forEach(node =>
-    node.addEventListener(
-      "click",
-      () =>
-        console.log("send message type: " + node.dataset.messageType) ||
-        liff.sendMessages([message[node.dataset.messageType]])
-    )
-  );
-
   const ACTION_URI = "https://nawawish.me";
   const message = {
     text: {
@@ -77,4 +68,13 @@ function liffInit() {
     image: {},
     location: {}
   };
+
+  [...document.getElementsByClassName("send-message-button")].forEach(node =>
+    node.addEventListener(
+      "click",
+      () =>
+        console.log("send message type: " + node.dataset.messageType) ||
+        liff.sendMessages([message[node.dataset.messageType]])
+    )
+  );
 }
