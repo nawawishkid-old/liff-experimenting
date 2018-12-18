@@ -9,7 +9,7 @@ html(lang="en")
         title Line LIFF Experimenting 
     body
         .button-row
-            each val in ['text', 'image', 'templateButton', 'templateConfirm', 'templateCarousel', 'location']
+            each val in ['text', 'image', 'templateButton', 'templateConfirm', 'templateCarousel', 'templateImageCarousel', 'location']
                 button.send-message-button(data-message-type=val)= 'send ' + val
 
         script(src="https://d.line-scdn.net/liff/1.0/sdk.js")

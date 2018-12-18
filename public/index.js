@@ -10,6 +10,16 @@ function liffInit() {
     template: { type, ...options }
   });
 
+  const getImageCarouselColumns = (...objs) =>
+    objs.map((obj, index) => ({
+      imageUrl: obj.url,
+      action: {
+        type: "uri",
+        label: obj.label || `label ${index + 1}`,
+        uri: ACTION_URI
+      }
+    }));
+
   const getCarouselColumns = (...imageSrcs) =>
     imageSrcs.map((src, index) => ({
       thumbnailImageUrl: src,
@@ -40,15 +50,21 @@ function liffInit() {
   const TEMPLATE_BUTTONS = "buttons";
   const TEMPLATE_CAROUSEL = "carousel";
   const TEMPLATE_CONFIRM = "confirm";
+  const TEMPLATE_IMAGE_CAROUSEL = "image_carousel";
   const ACTION_URI = "https://nawawish.me";
+  const images = [
+    "https://images.unsplash.com/photo-1545070255-fdc9a55d32f2",
+    "https://images.unsplash.com/photo-1545132147-d037e6c54cfd",
+    "https://images.unsplash.com/photo-1545121064-3e8e1241e291",
+    "https://images.unsplash.com/photo-1543363950-c78545037afc"
+  ];
   const message = {
     text: {
       type: "text",
       text: "You've successfully sent a message! Hooray!"
     },
     templateButton: getTemplate(TEMPLATE_BUTTONS, {
-      thumbnailImageUrl:
-        "https://images.unsplash.com/photo-1543363950-c78545037afc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80",
+      thumbnailImageUrl: images[3],
       title: "Menu",
       text: "Please select",
       defaultAction: {
@@ -63,11 +79,10 @@ function liffInit() {
       actions: getUriActions(2, { label: "Yes" }, { label: "No" })
     }),
     templateCarousel: getTemplate(TEMPLATE_CAROUSEL, {
-      columns: getCarouselColumns(
-        "https://images.unsplash.com/photo-1545070255-fdc9a55d32f2",
-        "https://images.unsplash.com/photo-1545132147-d037e6c54cfd",
-        "https://images.unsplash.com/photo-1545121064-3e8e1241e291"
-      )
+      columns: getCarouselColumns(...images)
+    }),
+    templateImageCarousel: getTemplate(TEMPLATE_IMAGE_CAROUSEL, {
+      columns: getImageCarouselColumns(...images.map(img => ({ url: img })))
     }),
     image: {},
     location: {}
