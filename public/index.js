@@ -4,6 +4,38 @@ window.onload = () =>
 function liffInit() {
   console.log("liffInit()");
 
+  const getTemplate = (type, options) => ({
+    type: "template",
+    altText: `This is a ${type} template.`,
+    template: { type, ...options }
+  });
+
+  const getCarouselColumns = (...imageSrcs) =>
+    imageSrcs.map((src, index) => ({
+      thumbnailImageUrl: src,
+      title: `Item ${index + 1}`,
+      text: `This is item no. ${index + 1}`,
+      actions: getUriActions(3)
+    }));
+
+  const getUriActions = (number, ...options) => {
+    const actions = [];
+    let option;
+
+    for (let i = 0; i < number; i++) {
+      option = typeof options[i].type !== "undefined" ? options[i] : {};
+
+      actions.push({
+        type: "uri",
+        label: `option #${i + 1}`,
+        uri: ACTION_URI,
+        ...option
+      });
+
+      return actions;
+    }
+  };
+
   [...document.getElementsByClassName("send-message-button")].forEach(node =>
     node.addEventListener(
       "click",
@@ -44,37 +76,5 @@ function liffInit() {
     }),
     image: {},
     location: {}
-  };
-
-  const getTemplate = (type, options) => ({
-    type: "template",
-    altText: `This is a ${type} template.`,
-    template: { type, ...options }
-  });
-
-  const getCarouselColumns = (...imageSrcs) =>
-    imageSrcs.map((src, index) => ({
-      thumbnailImageUrl: src,
-      title: `Item ${index + 1}`,
-      text: `This is item no. ${index + 1}`,
-      actions: getUriActions(3)
-    }));
-
-  const getUriActions = (number, ...options) => {
-    const actions = [];
-    let option;
-
-    for (let i = 0; i < number; i++) {
-      option = typeof options[i].type !== "undefined" ? options[i] : {};
-
-      actions.push({
-        type: "uri",
-        label: `option #${i + 1}`,
-        uri: ACTION_URI,
-        ...option
-      });
-
-      return actions;
-    }
   };
 }
