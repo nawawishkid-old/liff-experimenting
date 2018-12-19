@@ -7,7 +7,8 @@ const PORT = process.env.PORT || 5555;
 
 const mimetypes = {
   ".js": "text/javascript",
-  ".css": "text/css"
+  ".css": "text/css",
+  ".png": "image/png"
 };
 
 http
@@ -21,7 +22,7 @@ http
 
     const ext = getFileExtension(req.url);
 
-    if (ext === ".js" || ext === ".css") {
+    if (Object.keys(mimetypes).some(type => type === ext)) {
       fs.readFile("./public" + req.url, (err, content) => {
         if (err) {
           if (err.code === "ENONENT") {
