@@ -144,9 +144,7 @@ function getHelpers() {
     }));
 
   const getUriActions = (amount, ...options) => {
-    const actions = [];
     const validOptions = Array.isArray(options[0]) ? options[0] : options;
-    let option;
 
     return makeMany(
       amount,

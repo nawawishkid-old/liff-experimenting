@@ -1,3 +1,36 @@
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-flex.center-both {
+  justify-content: center;
+  align-items: center;
+}
+
+.d-flex.space-between {
+  justify-content: space-between;
+}
+
+.pos-relative {
+  position: relative;
+}
+
+.pos-absolute {
+  position: absolute;
+}
+
+.pos-fixed {
+  position: fixed;
+}
+
 .collapsible {
   max-height: 200px;
   overflow: hidden;
@@ -9,15 +42,10 @@
 }
 
 .responses {
-  position: fixed;
   bottom: 50px;
   z-index: 100;
   left: 0;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
   pointer-events: none;
 }
 
@@ -49,7 +77,6 @@ figure#profile-image {
 }
 
 #app {
-  position: relative;
   padding: 1em;
 }
 
@@ -60,14 +87,12 @@ figure#profile-image {
 }
 
 #initializer-background {
-  width: 100%;
-  height: 100%;
-  position: absolute;
   top: 0;
   left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.8);
+}
+
+.social-logo {
+  margin: 1em;
 }
