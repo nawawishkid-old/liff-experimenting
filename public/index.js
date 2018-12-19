@@ -132,7 +132,7 @@ function getHelpers() {
   const getImageCarouselColumns = (...objs) =>
     objs.map((obj, index) => ({
       imageUrl: obj.url,
-      action: getUriActions(1, { label: obj.label })[0]
+      action: getUriActions(1, { label: obj.label || `Label #${index + 1}` })[0]
     }));
 
   const getCarouselColumns = (...imageSrcs) =>
