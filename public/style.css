@@ -1,0 +1,73 @@
+.collapsible {
+  max-height: 200px;
+  overflow: hidden;
+  transition: max-height 0.4s;
+}
+
+.collapsible.collapse {
+  max-height: 0px;
+}
+
+.responses {
+  position: fixed;
+  bottom: 50px;
+  z-index: 100;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  pointer-events: none;
+}
+
+.response {
+  opacity: 0;
+  box-shadow: 0 10px 20px -10px;
+  pointer-events: initial;
+  transform: translateY(20px);
+  transition: opacity 0.4s, transform 0.8s;
+}
+
+.response.active {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.level-item {
+  margin: 1em;
+}
+
+#profile-wrapper {
+  margin-bottom: 2em;
+}
+
+figure#profile-image {
+  margin: auto;
+  margin-bottom: 1em;
+  border-radius: 50%;
+}
+
+#app {
+  position: relative;
+  padding: 1em;
+}
+
+#button-group {
+  max-width: 600px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+#initializer-background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8);
+}

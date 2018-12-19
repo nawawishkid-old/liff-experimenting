@@ -1,11 +1,15 @@
 window.onload = () =>
-  liff.init(
-    data => init(data),
-    err => {
-      console.log("err: ", err);
-      document.getElementById("warn-message").style.display = "block";
-    }
-  );
+  document.getElementById("initializer").addEventListener("click", () => {
+    enable();
+    init();
+  });
+liff.init(
+  data => init(data),
+  err => {
+    console.log("err: ", err);
+    disable();
+  }
+);
 
 function init(data) {
   console.log("init()");
@@ -15,17 +19,26 @@ function init(data) {
 
   const messages = getMessages();
 
-  [...document.getElementsByClassName("send-message-button")].forEach(node =>
-    node.addEventListener(
-      "click",
-      () =>
-        console.log("send message type: " + node.dataset.messageType) ||
-        liff.sendMessages(messages[node.dataset.messageType])
-    )
+  document.querySelectorAll("button[data-message-type]").forEach(node =>
+    node.addEventListener("click", () => {
+      console.log("send message type: " + node.dataset.messageType);
+      if (typeof liff.sendMessages === "undefined") {
+        createResponse("warning", "Could not send message!");
+
+        return;
+      }
+
+      liff.sendMessages(messages[node.dataset.messageType]);
+      createResponse("success", "Message sent!");
+    })
   );
 }
 
 function initProfileUi() {
+  if (typeof liff.getProfile === "undefined") {
+    return;
+  }
+
   liff
     .getProfile()
     .then(profile => {
@@ -34,8 +47,9 @@ function initProfileUi() {
       const profileNameP = document.getElementById("profile-name");
 
       profileNameP.textContent = displayName;
+      profileNameP.classList.remove("is-invisible");
       profileImageDom.src = pictureUrl;
-      profileImageDom.classList.remove('is-invisible');
+      profileImageDom.classList.remove("is-invisible");
     })
     .catch(err => {
       console.log(err);
@@ -185,4 +199,45 @@ function getHelpers() {
     getLocationMessage,
     makeMany
   };
+}
+
+function createResponse(type, message) {
+  const dom = document.createElement("span");
+  const responsesBox = document.getElementById("responses");
+
+  dom.classList.add("response", "tag", `is-${type}`, "is-medium");
+  dom.innerHTML = message;
+  responsesBox.appendChild(dom);
+  // dom.style.left =
+  //   window.innerWidth / 2 - dom.getBoundingClientRect().width / 2 + "px";
+  setTimeout(() => dom.classList.add("active"));
+
+  setTimeout(
+    () => responsesBox.firstElementChild.classList.remove("active"),
+    3000
+  );
+  setTimeout(
+    () => responsesBox.removeChild(responsesBox.firstElementChild),
+    3800
+  );
+}
+
+function disable() {
+  document.getElementById("profile-name").classList.remove("is-invisible");
+  document
+    .querySelectorAll("button[data-message-type]")
+    .forEach(dom => (dom.disabled = true));
+  document
+    .getElementById("initializer-background")
+    .classList.remove("is-invisible");
+  document.getElementById("warn-message-wrapper").classList.remove("collapse");
+}
+
+function enable() {
+  document
+    .getElementById("initializer-background")
+    .classList.add("is-invisible");
+  document
+    .querySelectorAll("button[data-message-type]")
+    .forEach(dom => (dom.disabled = false));
 }
