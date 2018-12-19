@@ -1,0 +1,7 @@
+p.content.d-flex.center-both
+
+    - const socials = [{ href: 'https://github.com/nawawishkid/liff-experimenting.git', name: 'github' }, { href: 'https://twitter.com/nawawishkid', name: 'twitter' }]
+    
+    each value in socials 
+        a.social-logo.image.is-24x24(href=value.href)
+            img(src=`logo-${value.name}.png` alt=`${value.name[0].toUpperCase() + value.name.slice(1)}'s logo`)

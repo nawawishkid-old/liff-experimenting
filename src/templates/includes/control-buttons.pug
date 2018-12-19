@@ -1,0 +1,4 @@
+#button-group.level
+    each val in ['text', 'image', 'templateButton', 'templateConfirm', 'templateCarousel', 'templateImageCarousel', 'location']
+        .level-item
+            button.button.is-outlined.is-link.send-message-button(data-message-type=val)= 'send ' + val

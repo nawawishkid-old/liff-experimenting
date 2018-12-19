@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+doctype html
 html.has-background-white-bis(lang="en")
     head
         meta(charset="UTF-8")
@@ -10,33 +10,20 @@ html.has-background-white-bis(lang="en")
         link(href="style.css" rel="stylesheet" type="text/css")
         title Line LIFF Experimenting 
     body
-        #warn-message-wrapper.collapsible.collapse
-            p#warn-message.notification.is-warning.is-marginless
-                | Sorry for the inconvenience. This app meant to works with 
-                a(href="https://developers.line.biz/en/docs/liff/overview/") LIFF
-                |, not a generic-browser web application. Please, visit 
-                a(href="line://app/1632266434-nNxB6Vv7") line://app/1632266434-nNxB6Vv7
+        include includes/warn-message.pug 
 
-        #app
-            #profile-wrapper
-                figure#profile-image.image.is-128x128.has-background-grey-lighter
-                    img.is-rounded.is-invisible(alt="User profile picture")
-                p.has-text-centered
-                    | Hello, 
-                    span#profile-name.is-invisible Anonymous
-            #button-group.level
-                each val in ['text', 'image', 'templateButton', 'templateConfirm', 'templateCarousel', 'templateImageCarousel', 'location']
-                    .level-item
-                        button.button.is-outlined.is-link.send-message-button(data-message-type=val)= 'send ' + val
+        #app.pos-relative
+
+            include includes/user-profile.pug 
+            include includes/control-buttons.pug 
+
+            // Footer 
             footer#footer.footer
-                p.content.has-text-centered 
-                    small
-                        | Created by 
-                        a(href="https://github.com/nawawishkid") nawawishkid
-            #initializer-background.is-invisible
-                button#initializer.button.is-info Initialize anyway
+                
+                include includes/social.pug 
+                include includes/initializer-modal.pug 
 
-        #responses.responses
+            include includes/response-notification.pug 
 
         script(src="https://d.line-scdn.net/liff/1.0/sdk.js")
         script(src="index.js")
