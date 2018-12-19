@@ -75,7 +75,7 @@ function getMessages() {
     "https://images.unsplash.com/photo-1545132147-d037e6c54cfd",
     "https://images.unsplash.com/photo-1545121064-3e8e1241e291",
     "https://images.unsplash.com/photo-1543363950-c78545037afc"
-  ];
+  ].map(img => `${img}?w=800&q=40`);
   const message = {
     text: [
       {
