@@ -1,15 +1,16 @@
-window.onload = () =>
-  document.getElementById("initializer").addEventListener("click", () => {
-    enable();
-    init();
-  });
-liff.init(
-  data => init(data),
-  err => {
-    console.log("err: ", err);
-    disable();
-  }
-);
+window.onload = () => {
+  // document.getElementById("initializer").addEventListener("click", () => {
+  //   enable();
+  //   init();
+  // });
+  liff.init(
+    data => init(data),
+    err => {
+      console.log("err: ", err);
+      // disable();
+    }
+  );
+};
 
 function init(data) {
   console.log("init()");

@@ -7,10 +7,15 @@ html.has-background-white-bis(lang="en")
         script(src='vconsole.min.js')
         script var vconsole = new VConsole();
         link(href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" rel="stylesheet" type="text/css")
+        link(href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet")
         link(href="style.css" rel="stylesheet" type="text/css")
         title Line LIFF Experimenting 
     body
         include includes/warn-message.pug 
+
+        // each scheme in fieldScheme
+            each field in scheme
+                p= field.attributes.type
 
         #app.pos-relative
 
@@ -19,11 +24,12 @@ html.has-background-white-bis(lang="en")
 
             // Footer 
             footer#footer.footer
-                
+
                 include includes/social.pug 
-                include includes/initializer-modal.pug 
+                // include includes/initializer-modal.pug 
 
             include includes/response-notification.pug 
 
         script(src="https://d.line-scdn.net/liff/1.0/sdk.js")
         script(src="index.js")
+        script(src="event.js")
