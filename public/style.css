@@ -93,6 +93,14 @@ figure#profile-image {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+#forms-wrapper {
+  padding: 2em 0;
+}
+
 .social-logo {
   margin: 1em;
+}
+
+.field-info .required-status {
+  margin-left: 5px;
 }
