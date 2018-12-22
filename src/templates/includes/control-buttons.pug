@@ -1,23 +1,29 @@
-div
+#forms-wrapper
     each val in ['text', 'image', 'templateButton', 'templateConfirm', 'templateCarousel', 'templateImageCarousel', 'location']
-        - const scheme = fieldScheme[val];
+        - const scheme = fieldSchemes[val];
         if typeof scheme === 'undefined'
             - continue
 
         .box
             .title.is-4 #{val} Message
-            form(novalidate)
-                each field in scheme
+            form(id=scheme.id novalidate)
+                each field in scheme.fields 
                     - const { attributes } = field;
                     if attributes.type === 'hidden'
                         input&attributes(attributes)
                         - continue
                     .field
                         label.label(for=attributes.name)
+                            if attributes.required
+                                small.has-text-danger * 
                             | #{field.label}
-                            if field.description
-                                span.description-icon.icon.has-text-info(data-for=attributes.name)
-                                    i.fas.fa-info-circle
+                            span.field-info
+                                if field.description
+                                    span.description-icon.icon.has-text-info(data-for=attributes.name)
+                                        i.fas.fa-info-circle
+                                - const isRequired = attributes.required;
+                                // small.required-status.has-text-weight-light(class=`has-text-${isRequired ? 'danger' : 'info'}`)= isRequired ? 'required' : 'optional'
+
                         .control
                             if field.type === 'select'
                                 select.select&attributes(attributes)
@@ -38,10 +44,10 @@ div
                         if field.description
                             .field-description.collapsible.collapse(data-for=attributes.name)
                                 .notification.is-info
-                                    button.delete(type="button")
+                                    button.delete(type="button" tabindex="-1")
                                     //- unescaped
                                     | !{field.description}
-                        
+
                 .field
                     .control
                         button.button.is-outlined.is-link.submit-button(data-message-type=val)= 'send ' + val

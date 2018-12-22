@@ -2,6 +2,10 @@ class InputSchemeFactory {
   _data = {};
   defaultAttributes = {};
 
+  /**
+   *
+   * @param {HTMLAttributes} defaultAttributes Default attributes.
+   */
   constructor(defaultAttributes = {}) {
     this.defaultAttributes = defaultAttributes;
     this._resetFieldData();
@@ -45,6 +49,10 @@ class InputSchemeFactory {
 
   url(name) {
     return this.type("url").name(name);
+  }
+
+  color(name) {
+    return this.type("color").name(name);
   }
 
   hidden(name) {
@@ -115,19 +123,19 @@ class InputSchemeFactory {
   }
 
   min(number) {
-    throwIfFieldTypeNotNumberOrTextClass(this._getAttr("type"));
-
-    const type = this._getAttr("type");
+    const type = this._getFieldType();
     const attr = isTypeTextClass(type) ? "minlength" : "min";
+
+    throwIfFieldTypeNotNumberOrTextClass(type);
 
     return this._setAttr(attr, number);
   }
 
   max(number) {
-    throwIfFieldTypeNotNumberOrTextClass(this._getAttr("type"));
-
-    const type = this._getAttr("type");
+    const type = this._getFieldType();
     const attr = isTypeTextClass(type) ? "maxlength" : "max";
+
+    throwIfFieldTypeNotNumberOrTextClass(type);
 
     return this._setAttr(attr, number);
   }
@@ -139,7 +147,6 @@ class InputSchemeFactory {
   }
 
   data(key, value) {
-    const stringValue = value.toString();
     const isTestPass = /^[^-]([a-zA-Z]+-{0,1})+$/g.test(key);
 
     throwIf(
@@ -148,7 +155,7 @@ class InputSchemeFactory {
     );
     throwIfNotType("string", key);
 
-    return this._setAttr(`data-${key}`, stringValue);
+    return this._setAttr(`data-${key}`, value);
   }
 
   /**
@@ -202,13 +209,26 @@ class InputSchemeFactory {
     return this._setExtra("description", text);
   }
 
-  /**
-   * **********
-   *
-   * Utility methods
-   *
-   * **********
-   */
+  duplicatable() {
+    return this._setExtra("isDuplicatable", true).data("duplicatable", true);
+  }
+
+  maxDuplications(number) {
+    throwIfNotType("number", number);
+
+    return this._setExtra("maxDuplication", number).data(
+      "max-duplication",
+      number
+    );
+  }
+
+  toString() {
+    return this.toJSON();
+  }
+
+  toJSON() {
+    return this._data;
+  }
 
   /**
    * **********
@@ -275,6 +295,10 @@ class InputSchemeFactory {
     return value;
   }
 
+  _getFieldType() {
+    return this._getAttr("type") || this._getExtra("type");
+  }
+
   _resetFieldData() {
     const { attributes, ...rest } = this._getDefaultFieldData();
 
@@ -288,11 +312,7 @@ class InputSchemeFactory {
 
   _getDefaultFieldData() {
     return {
-      attributes: {
-        type: "text",
-        name: null,
-        value: null
-      },
+      attributes: {},
       validators: []
     };
   }
@@ -347,7 +367,7 @@ const isString = value => typeof value === "string";
 const isNumber = value => typeof value === "number";
 const isArray = value => Array.isArray(value);
 const isFunction = value => typeof value === "function";
-const isObject = value => value.constructor === Object;
+const isObject = value => value !== null && value.constructor === Object;
 const isUndefined = value => typeof value === "undefined";
 const isTypeTextClass = type => TEXT_RELATED_FIELD_TYPES.some(t => t === type);
 const throwIfFieldTypeNotNumberOrTextClass = type => {

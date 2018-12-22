@@ -4,7 +4,7 @@ const fs = require("fs");
 const pug = require("pug");
 const DOMAIN_NAME = "https://liff-experimenting.heroku.com";
 const PORT = process.env.PORT || 5555;
-const fieldScheme = require("./message-fields");
+const fieldSchemes = require("./message-fields");
 
 const mimetypes = {
   ".js": "text/javascript",
@@ -17,7 +17,7 @@ http
     console.log(`${req.method.toUpperCase()} - ${req.url}`);
     if (req.url === "/") {
       res.end(
-        pug.compileFile("./src/templates/index.pug")({ fieldScheme }),
+        pug.compileFile("./src/templates/index.pug")({ fieldSchemes }),
         "utf-8"
       );
 

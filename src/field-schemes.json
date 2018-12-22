@@ -1,134 +1,335 @@
 {
-  "text": [
-    {
-      "validators": [],
-      "attributes": {
-        "type": "hidden",
-        "name": "message_type",
-        "value": "text",
-        "required": true
+  "image": {
+    "id": "imageMessage",
+    "fields": [
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "hidden",
+          "name": "imageMessage_type",
+          "value": "image",
+          "id": "imageMessage_type"
+        }
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "url",
+          "name": "imageMessage_originalContentUrl",
+          "pattern": "^https:\\/\\/([a-z]+\\.[a-z]{2,})+.*$",
+          "data-error-message-pattern": "URL must be HTTPS, HTTP not allowed.",
+          "maxlength": 1000,
+          "id": "imageMessage_originalContentUrl"
+        },
+        "label": "Original Content URL",
+        "description": "Preview image URL. <p>Must be .jpeg file with maximum resolution of 1024x1024px  and under 1Mb in size.</p>"
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "url",
+          "name": "imageMessage_previewImageUrl",
+          "pattern": "^https:\\/\\/([a-z]+\\.[a-z]{2,})+.*$",
+          "data-error-message-pattern": "URL must be HTTPS, HTTP not allowed.",
+          "maxlength": 1000,
+          "id": "imageMessage_previewImageUrl"
+        },
+        "label": "Preview Image URL",
+        "description": "Preview image URL. <p>Must be .jpeg file with maximum resolution of 240x240px  and under 1Mb in size.</p>"
       }
-    },
-    {
-      "validators": [
-        { "message": "Text length must not exceed 2000 characters" }
-      ],
-      "attributes": {
-        "type": "text",
-        "name": "text",
-        "value": "Hello! This message is sent from LIFF!",
-        "required": true,
-        "placeholder": "Your message goes here...",
-        "maxlength": 2000
+    ]
+  },
+  "text": {
+    "id": "textMessage",
+    "fields": [
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "hidden",
+          "name": "textMessage_type",
+          "value": "text",
+          "id": "textMessage_type"
+        }
       },
-      "type": "textarea",
-      "label": "Text"
-    }
-  ],
-  "image": [
-    {
-      "validators": [],
-      "attributes": {
-        "type": "hidden",
-        "name": "message_type",
-        "value": "image",
-        "required": true
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "name": "textMessage_text",
+          "placeholder": "Your message goes here...",
+          "value": "Hello! This message is sent from LIFF!",
+          "maxlength": 2000,
+          "id": "textMessage_text"
+        },
+        "type": "textarea",
+        "label": "Text"
       }
-    },
-    {
-      "validators": [{ "message": "Image URL scheme must be HTTPS" }],
-      "attributes": {
-        "type": "url",
-        "name": "originalContentUrl",
-        "value": null,
-        "required": true,
-        "maxlength": 1000
+    ]
+  },
+  "location": {
+    "id": "locationMessage",
+    "fields": [
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "hidden",
+          "name": "locationMessage_type",
+          "value": "location",
+          "id": "locationMessage_type"
+        }
       },
-      "label": "Original Content URL",
-      "description": "Image URL. Must be .jpeg file with 1024x1024 px maximum resolution and under 1Mb in size."
-    },
-    {
-      "validators": [{ "message": "Image URL scheme must be HTTPS" }],
-      "attributes": {
-        "type": "url",
-        "name": "previewImageUrl",
-        "value": null,
-        "required": true,
-        "maxlength": 1000
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "text",
+          "name": "locationMessage_title",
+          "placeholder": "Location title",
+          "maxlength": 100,
+          "id": "locationMessage_title"
+        },
+        "label": "Title"
       },
-      "label": "Preview Image URL",
-      "description": "Preview image URL. <p>Must be .jpeg file with 240x240 px maximum resolution and under 1Mb in size.</p>"
-    }
-  ],
-  "location": [
-    {
-      "validators": [],
-      "attributes": {
-        "type": "hidden",
-        "name": "message_type",
-        "value": "location",
-        "required": true
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "text",
+          "name": "locationMessage_address",
+          "placeholder": "Your address here...",
+          "maxlength": 100,
+          "id": "locationMessage_address"
+        },
+        "label": "Address"
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "number",
+          "name": "locationMessage_latitude",
+          "placeholder": "e.g. -18.41242039402342",
+          "max": 90,
+          "min": -90,
+          "step": 0.00001,
+          "id": "locationMessage_latitude"
+        },
+        "label": "Latitude"
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "number",
+          "name": "locationMessage_longitude",
+          "placeholder": "e.g. 173.41242039402342",
+          "max": 180,
+          "min": -180,
+          "step": 0.00001,
+          "id": "locationMessage_longitude"
+        },
+        "label": "Longitude"
       }
-    },
-    {
-      "validators": [
-        { "message": "Text length must not exceed 100 characters" }
-      ],
-      "attributes": {
-        "type": "text",
-        "name": "title",
-        "value": null,
-        "required": true,
-        "placeholder": "Location title",
-        "maxlength": 100
+    ]
+  },
+  "templateButton": {
+    "id": "templateButtonMessage",
+    "fields": [
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "hidden",
+          "name": "templateButtonMessage_type",
+          "value": "template",
+          "id": "templateButtonMessage_type"
+        }
       },
-      "label": "Title"
-    },
-    {
-      "validators": [
-        { "message": "Text length must not exceed 100 characters" }
-      ],
-      "attributes": {
-        "type": "text",
-        "name": "address",
-        "value": null,
-        "required": true,
-        "placeholder": "Your address here...",
-        "maxlength": 100
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "name": "templateButtonMessage_altText",
+          "maxlength": 400,
+          "id": "templateButtonMessage_altText"
+        },
+        "type": "textarea",
+        "label": "Alternative text"
       },
-      "label": "Address"
-    },
-    {
-      "validators": [
-        { "message": "Invalid latitude value. Valid range is -90 - 90." }
-      ],
-      "attributes": {
-        "type": "number",
-        "name": "latitude",
-        "value": null,
-        "required": true,
-        "placeholder": "e.g. -18.41242039402342",
-        "max": 90,
-        "min": -90,
-        "step": 0.00001
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "hidden",
+          "name": "templateButtonMessage_template_type",
+          "value": "buttons",
+          "id": "templateButtonMessage_template_type"
+        }
       },
-      "label": "Latitude"
-    },
-    {
-      "validators": [
-        { "message": "Invalid longitude value. Valid range is -180 - 180." }
-      ],
-      "attributes": {
-        "type": "number",
-        "name": "longitude",
-        "value": null,
-        "required": true,
-        "placeholder": "e.g. 173.41242039402342",
-        "max": 180,
-        "min": -180,
-        "step": 0.00001
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "name": "templateButtonMessage_template_text",
+          "maxlength": 160,
+          "id": "templateButtonMessage_template_text"
+        },
+        "type": "textarea",
+        "label": "Text message",
+        "description": "Max to 160 characters if there is no image or title. Otherwise, max to 60 characters"
       },
-      "label": "Longitude"
-    }
-  ]
+      {
+        "validators": [],
+        "attributes": {
+          "required": false,
+          "type": "text",
+          "name": "templateButtonMessage_template_title",
+          "maxlength": 40,
+          "id": "templateButtonMessage_template_title"
+        },
+        "label": "Title"
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "required": false,
+          "type": "url",
+          "name": "templateButtonMessage_template_thumbnailImageUrl",
+          "pattern": "^https:\\/\\/([a-z]+\\.[a-z]{2,})+.*$",
+          "data-error-message-pattern": "URL must be HTTPS, HTTP not allowed.",
+          "maxlength": 1000,
+          "id": "templateButtonMessage_template_thumbnailImageUrl"
+        },
+        "label": "Thumbnail image URL",
+        "description": "Image must be .jpeg or .png with maximum width of 1,024px and less than or equal to 1Mb in size."
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "required": false,
+          "name": "templateButtonMessage_template_imageAspectRatio",
+          "value": "rectangle",
+          "id": "templateButtonMessage_template_imageAspectRatio"
+        },
+        "type": "select",
+        "label": "Image aspect ratio",
+        "options": [
+          { "title": "rectangle (1.51:1)", "value": "rectangle" },
+          { "title": "square (1:1)", "value": "square" }
+        ]
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "required": false,
+          "name": "templateButtonMessage_template_imageSize",
+          "value": "cover",
+          "id": "templateButtonMessage_template_imageSize"
+        },
+        "type": "select",
+        "label": "Image size",
+        "options": [
+          { "title": "cover", "value": "cover" },
+          { "title": "contain", "value": "contain" }
+        ]
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "required": false,
+          "type": "color",
+          "name": "templateButtonMessage_template_imageBackgroundColor",
+          "value": "#f2f2f2",
+          "id": "templateButtonMessage_template_imageBackgroundColor"
+        },
+        "label": "Image background color"
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "hidden",
+          "name": "templateButtonMessage_defaultAction_type",
+          "value": "uri",
+          "id": "templateButtonMessage_defaultAction_type"
+        }
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "text",
+          "name": "templateButtonMessage_defaultAction_label",
+          "maxlength": 20,
+          "id": "templateButtonMessage_defaultAction_label"
+        },
+        "label": "Default action label"
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "required": true,
+          "type": "url",
+          "name": "templateButtonMessage_defaultAction_uri",
+          "pattern": "^((http|https):\\/\\/([a-z]+\\.[a-z]{2,})+|line:\\/\\/([a-z]+\\/)+|tel).*$",
+          "data-error-message-pattern": "The available schemes are <code>http</code>, <code>https</code>, <code>line</code>, and <code>tel</code>",
+          "maxlength": 1000,
+          "id": "templateButtonMessage_defaultAction_uri"
+        },
+        "label": "Default action link URL",
+        "description": "Link URL to be opened when tapped."
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "type": "hidden",
+          "name": "templateButtonMessage_action_type",
+          "value": "uri",
+          "data-duplicatable": true,
+          "data-max-duplication": 4,
+          "id": "templateButtonMessage_action_type"
+        },
+        "isDuplicatable": true,
+        "maxDuplication": 4
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "type": "text",
+          "name": "templateButtonMessage_action_label",
+          "maxlength": 20,
+          "required": true,
+          "data-duplicatable": true,
+          "data-max-duplication": 4,
+          "id": "templateButtonMessage_action_label"
+        },
+        "label": "Action label",
+        "isDuplicatable": true,
+        "maxDuplication": 4
+      },
+      {
+        "validators": [],
+        "attributes": {
+          "type": "url",
+          "name": "templateButtonMessage_action_uri",
+          "pattern": "^((http|https):\\/\\/([a-z]+\\.[a-z]{2,})+|line:\\/\\/([a-z]+\\/)+|tel).*$",
+          "data-error-message-pattern": "The available schemes are <code>http</code>, <code>https</code>, <code>line</code>, and <code>tel</code>",
+          "maxlength": 1000,
+          "required": true,
+          "data-duplicatable": true,
+          "data-max-duplication": 4,
+          "id": "templateButtonMessage_action_uri"
+        },
+        "label": "Action link URL",
+        "description": "Link URL to be opened when tapped.",
+        "isDuplicatable": true,
+        "maxDuplication": 4
+      }
+    ]
+  }
 }

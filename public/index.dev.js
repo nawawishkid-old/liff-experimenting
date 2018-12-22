@@ -104,17 +104,118 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({"A6es":[function(require,module,exports) {
+})({"jc48":[function(require,module,exports) {
+document.querySelectorAll("form .field .description-icon").forEach(function (elem) {
+  return elem.addEventListener("click", function (e) {
+    console.log("description icon clicked!");
+    var notiDom = document.querySelector("form .field .field-description[data-for=".concat(this.dataset.for, "]"));
+    var method = notiDom.classList.contains("collapse") ? "remove" : "add";
+    notiDom.classList[method]("collapse");
+  });
+});
+document.querySelectorAll("form .field .field-description").forEach(function (elem) {
+  return elem.querySelector(".delete").addEventListener("click", function () {
+    return elem.classList.add("collapse");
+  });
+});
+},{}],"C/Vt":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.parseManyFieldNames = exports.parseFieldName = void 0;
 
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+var parseManyFieldNames = function parseManyFieldNames(fields) {
+  var starterObj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var delimiter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "_";
+  return fields.reduce(function (obj, field) {
+    return parseFieldName(field, obj);
+  }, starterObj, delimiter);
+};
 
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+exports.parseManyFieldNames = parseManyFieldNames;
+
+var parseFieldName = function parseFieldName(field) {
+  var starterObj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var delimiter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "_";
+  var name = field.name,
+      value = field.value;
+  var splittedName = name.split(delimiter); // Remove form id
+
+  var keys = splittedName.slice(1);
+  keys.reduce(function (obj, key, index) {
+    var isLastIndex = !keys[index + 1] ? true : false;
+
+    if (Array.isArray(obj) && isNaN(parseInt(key))) {
+      throw new Error("The key preceded by array must be a numeric value, " + key + " given.");
+    }
+
+    if (isLastIndex) {
+      return handleLastIndex(obj, key, value);
+    } // Keyname ends with bracket
+
+
+    var valueShouldBeArray = key.slice(-2) === "[]";
+
+    if (valueShouldBeArray) {
+      return handleArrayProperty(obj, key);
+    }
+
+    return handleNormal(obj, key);
+  }, starterObj);
+  return starterObj;
+};
+/**
+ * *****
+ * HELPER FUNCTIONS
+ * *****
+ */
+
+
+exports.parseFieldName = parseFieldName;
+
+var handleLastIndex = function handleLastIndex(obj, key, value) {
+  obj[key] = value;
+  return obj;
+};
+
+var handleArrayProperty = function handleArrayProperty(obj, key) {
+  // Remove bracket from keyname then assign new array to it.
+  var slicedKey = key.slice(0, -2);
+  var prop = obj[slicedKey]; // If prop already exists, skip the loop
+  // to prevent data overwriting.
+
+  if (isPropExists(obj, slicedKey)) {
+    return prop;
+  }
+
+  obj[slicedKey] = [];
+  return obj[slicedKey];
+};
+
+var handleNormal = function handleNormal(obj, key) {
+  // If prop already exists, skip the loop
+  // to prevent data overwriting.
+  if (isPropExists(obj, key)) {
+    return obj[key];
+  } // If key is not expected to be array
+  // and not the last item, assign new object to it.
+
+
+  obj[key] = {};
+  return obj[key];
+};
+
+var isPropExists = function isPropExists(obj, key) {
+  return typeof obj[key] !== "undefined";
+};
+},{}],"iynK":[function(require,module,exports) {
+"use strict";
+
+var fieldNameParser = _interopRequireWildcard(require("../fieldNameParser"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -124,399 +225,65 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var isString = function isString(value) {
-  return typeof value === "string";
-};
-
-var isNumber = function isNumber(value) {
-  return typeof value === "number";
-};
-
-var isArray = function isArray(value) {
-  return Array.isArray(value);
-};
-
-var isFunction = function isFunction(value) {
-  return typeof value === "function";
-};
-
-var isObject = function isObject(value) {
-  return value.constructor === Object;
-};
-
-var isUndefined = function isUndefined(value) {
-  return typeof value === "undefined";
-};
-
-var throwIf = function throwIf(test, message) {
-  if (test) {
-    throw new Error(message);
-  }
-
-  return true;
-};
-
-var throwIfNotType = function throwIfNotType(type, value) {
-  var isThatType;
-
-  switch (type) {
-    case "string":
-      isThatType = isString(value);
-      break;
-
-    case "number":
-      isThatType = isNumber(value);
-      break;
-
-    case "array":
-      isThatType = isArray(value);
-      break;
-
-    default:
-      throw new TypeError("Invalid type given to test.");
-  }
-
-  return throwIf(!isThatType, "Expected ".concat(type, ", ").concat(_typeof(value), " given."));
-};
-
-var TYPE_VALIDATOR_OBJ = {
-  validator: Function,
-  message: String
-};
-var TYPE_OPTIONS = {
-  title: String,
-  value: "*"
-};
-
-var validateType = function validateType(type, obj) {
-  return Object.keys(type).every(function (key) {
-    if (type[key] === "*") {
-      return true;
-    }
-
-    return _typeof(obj[key]) === type[key].name;
+function handleEachForm(form) {
+  var fields = _toConsumableArray(form.elements).filter(function (elem) {
+    return elem.tagName !== "BUTTON";
   });
-};
 
-var InputSchemeFactory =
-/*#__PURE__*/
-function () {
-  function InputSchemeFactory() {
-    var defaultAttributes = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  fields.forEach(handleEachField);
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    fields.forEach(validateField);
+    var liffMessageData = fieldNameParser.parseManyFieldNames(fields); // const liffMessageData = createLiffMessageData(fields);
 
-    _classCallCheck(this, InputSchemeFactory);
+    console.log("The form is submitted!");
+    console.log("liffMessageData: ", liffMessageData);
+  });
+}
 
-    _defineProperty(this, "fieldData", {});
+function handleEachField(field) {
+  field.addEventListener("input", function (e) {
+    return validateField(e.target);
+  });
+} // Handle all form submission.
 
-    _defineProperty(this, "defaultAttributes", {});
 
-    this.defaultAttributes = defaultAttributes;
+document.querySelectorAll("form").forEach(handleEachForm); // Handle all submit buttons
+// document.querySelectorAll(".submit-button").forEach(dom =>
+//   dom.addEventListener("click", e => {
+//     // e.preventDefault();
+//     console.log("Submit button is clicked!");
+//   })
+// );
+// Should separate concern
 
-    this._resetFieldData();
+function validateField(field) {
+  var validity = field.validity,
+      validationMessage = field.validationMessage;
+  var messageDom = field.parentElement.parentElement.querySelector(".builtin-message");
+
+  if (!validity.valid) {
+    var message = validity.patternMismatch ? field.dataset.errorMessagePattern : validationMessage;
+    field.classList.remove("is-success");
+    field.classList.add("is-danger");
+    messageDom.innerHTML = message || validationMessage;
+    return true;
+  } else {
+    field.classList.remove("is-danger");
+    field.classList.add("is-success");
+    messageDom.innerHTML = "";
+    return false;
   }
-
-  _createClass(InputSchemeFactory, [{
-    key: "get",
-    value: function get() {
-      var data = _objectSpread({}, this.fieldData);
-
-      this._resetFieldData();
-
-      return data;
-    }
-  }, {
-    key: "text",
-    value: function text(name) {
-      return this._setAttr({
-        type: "text",
-        name: name
-      });
-    }
-  }, {
-    key: "number",
-    value: function number(name) {
-      return this._setAttr({
-        type: "number",
-        name: name
-      });
-    }
-  }, {
-    key: "select",
-    value: function select(name) {
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-      return this._setAttr({
-        type: "select",
-        name: name
-      })._setOptions(options);
-    }
-  }, {
-    key: "bool",
-    value: function bool(name) {
-      return this._setAttr({
-        type: "select",
-        name: name
-      })._setOptions([true, false]);
-    }
-  }, {
-    key: "hidden",
-    value: function hidden(name) {
-      return this._setAttr({
-        type: "hidden",
-        name: name
-      });
-    }
-  }, {
-    key: "value",
-    value: function value(_value) {
-      return this._setAttr("value", _value);
-    }
-    /**
-     * HTML5 'pattern' attribute for validation.
-     *
-     * @param {string} pattern
-     */
-
-  }, {
-    key: "pattern",
-    value: function pattern(_pattern) {
-      throwIfNotType("string", _pattern);
-      return this._setAttr("pattern", _pattern);
-    }
-  }, {
-    key: "required",
-    value: function required() {
-      return this._setAttr("required", true);
-    }
-  }, {
-    key: "optional",
-    value: function optional() {
-      return this._setAttr("required", false);
-    }
-    /**
-     * <input type="number" step={number} />
-     *
-     * @param {number} step
-     */
-
-  }, {
-    key: "step",
-    value: function step(number) {
-      var type = this.fieldData.type;
-      throwIf(type !== "number" || type !== "text", 'Input type must be "number" or "text" before set "step" attribute');
-      return this._setAttr("step", number);
-    }
-  }, {
-    key: "min",
-    value: function min(number) {
-      var type = this.fieldData.type;
-      throwIf(type !== "number" || type !== "text", 'Input type must be "number" or "text" before set "min" attribute');
-      return this._setAttr("min", number);
-    }
-  }, {
-    key: "max",
-    value: function max(number) {
-      var type = this.fieldData.type;
-      throwIf(type !== "number" || type !== "text", 'Input type must be "number" or "text" before set "max" attribute');
-      return this._setAttr("max", number);
-    }
-    /**
-     * <option> for <select>
-     *
-     * @param {array} options
-     */
-
-  }, {
-    key: "options",
-    value: function options(_options) {
-      throwIf(this.fieldData.type !== "select", 'Input type must be "select" before set options');
-      throwIfNotType("array", _options);
-      throwIf(_options.every(function (opt) {
-        return validateType(TYPE_OPTIONS, opt);
-      }), "Option object must be { title, value }");
-      return this._setExtra("options", _options);
-    }
-  }, {
-    key: "validator",
-    value: function validator(validatorObj) {
-      throwIf(validateType(TYPE_VALIDATOR_OBJ, validatorObj), 'validatorObj.validator must be a "function" and validatorObj.message must be a "string"');
-      this.fieldData.validators.push(validatorObj);
-      return this;
-    }
-  }, {
-    key: "_setAttr",
-    value: function _setAttr(key, newValue) {
-      var _this = this;
-
-      var isMerge = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-
-      if (isObject(key)) {
-        Object.keys(key).forEach(function (k) {
-          return _this._setAttr(k, key[k]);
-        });
-        return this;
-      }
-
-      var oldValue = this.fieldData.attributes[key];
-      this.fieldData.attributes[key] = this._createValueFromClassApiCall(newValue, oldValue, isMerge);
-      return this;
-    }
-  }, {
-    key: "_setExtra",
-    value: function _setExtra(key, newValue) {
-      var _this2 = this;
-
-      var isMerge = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-
-      if (isObject(key)) {
-        Object.keys(key).forEach(function (k) {
-          return _this2._setExtra(k, key[k]);
-        });
-        return this;
-      }
-
-      var oldValue = this.fieldData[key];
-      this.fieldData[key] = this._createValueFromClassApiCall(newValue, oldValue, isMerge);
-      return this;
-    }
-  }, {
-    key: "_createValueFromClassApiCall",
-    value: function _createValueFromClassApiCall(newValue, oldValue) {
-      var isMerge = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-      var value;
-
-      if (isArray(newValue) && isArray(oldValue) && isMerge) {
-        value = [].concat(_toConsumableArray(oldValue), _toConsumableArray(newValue));
-      } else if (isObject(newValue) && isObject(oldValue) && isMerge) {
-        value = _objectSpread({}, oldValue, newValue);
-      } else {
-        value = newValue;
-      }
-
-      return value;
-    }
-  }, {
-    key: "_resetFieldData",
-    value: function _resetFieldData() {
-      var _this$_getDefaultFiel = this._getDefaultFieldData(),
-          attributes = _this$_getDefaultFiel.attributes,
-          rest = _objectWithoutProperties(_this$_getDefaultFiel, ["attributes"]);
-
-      this.fieldData = _objectSpread({}, rest, {
-        attributes: _objectSpread({}, attributes, this.defaultAttributes)
-      });
-      return this;
-    }
-  }, {
-    key: "_getDefaultFieldData",
-    value: function _getDefaultFieldData() {
-      return {
-        attributes: {
-          type: "text",
-          name: null,
-          value: null
-        },
-        validators: []
-      };
-    }
-  }]);
-
-  return InputSchemeFactory;
-}();
-
-var _default = InputSchemeFactory;
-exports.default = _default;
-},{}],"dUpu":[function(require,module,exports) {
+}
+},{"../fieldNameParser":"C/Vt"}],"mHFU":[function(require,module,exports) {
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.location = exports.image = exports.text = void 0;
+require("./field-description-effect");
 
-var _InputSchemeFactory = _interopRequireDefault(require("./InputSchemeFactory"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var isf = new _InputSchemeFactory.default({
-  required: true
-});
-
-var createMessageFields = function createMessageFields(type) {
-  for (var _len = arguments.length, fields = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    fields[_key - 1] = arguments[_key];
-  }
-
-  return [getMessageTypeField(type)].concat(fields);
-};
-
-var getMessageTypeField = function getMessageTypeField(type) {
-  return isf.hidden("message_type").value(type).get();
-};
-/**
- * **********
- * VALIDATORS
- * **********
- */
-
-
-var validator = {
-  httpsUrl: {
-    // https://developers.line.biz/en/reference/messaging-api/#image-message
-    validator: function validator(value) {
-      return /^https:\/\/.*/g.test(value) && value.length <= 1000;
-    },
-    message: "Image URL scheme must be HTTPS"
-  },
-  getTextLengthValidator: function getTextLengthValidator(limit) {
-    return {
-      validator: function validator(value) {
-        return value.length <= limit;
-      },
-      message: "Text length must not exceed ".concat(limit, " characters")
-    };
-  }
-};
-/**
- * **********
- * FIELDS
- * **********
- */
-
-var text = createMessageFields("text", isf.text("text").validator(validator.getTextLengthValidator(2000)).get());
-exports.text = text;
-var image = createMessageFields("image", isf.text("originalContentUrl").validator(validator.httpsUrl).get(), isf.text("previewImageUrl").validator(validator.httpsUrl).get());
-exports.image = image;
-var location = createMessageFields("location", isf.text("title").validator(validator.getTextLengthValidator(100)).get(), isf.text("address").validator(validator.getTextLengthValidator(100)).get(), isf.number("lattitude").validator({
-  validator: function validator(value) {
-    return value >= -90 && value <= 90;
-  },
-  message: "Invalid lattitude value. Valid range is -90 - 90."
-}).get(), isf.number("longitude").validator({
-  validator: function validator(value) {
-    return value >= -180 && value <= 180;
-  },
-  message: "Invalid longitude value. Valid range is -180 - 180."
-}).get());
-exports.location = location;
-},{"./InputSchemeFactory":"A6es"}],"Focm":[function(require,module,exports) {
+require("./form-validation");
+},{"./field-description-effect":"jc48","./form-validation":"iynK"}],"Focm":[function(require,module,exports) {
 "use strict";
 
-var schemes = _interopRequireWildcard(require("./message-fields"));
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-window.schemes = schemes;
-},{"./message-fields":"dUpu"}]},{},["Focm"], null)
+require("./dom");
+},{"./dom":"mHFU"}]},{},["Focm"], null)
 //# sourceMappingURL=/index.dev.map

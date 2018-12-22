@@ -4,13 +4,19 @@
   "description": "This is a small web application that demonstrates the basic functionality of the [LINE Front-end Framework (LIFF)](https://developers.line.me/en/docs/liff/overview/).",
   "main": "dist/server.js",
   "scripts": {
-    "test": "jest tests",
-    "build-client": "parcel build -o index.min.js -d public src/client/index.js",
-    "build-client-dev": "parcel build -o index.dev.js -d public --no-minify src/client/index.js",
+    "test": "jest ^.*\\.test\\.js$ --rootDir .",
+    "build-client": "parcel build -o index.js -d public src/client/index.js",
+    "build-client-dev": "parcel build -o index.js -d public --no-minify src/client/index.js",
     "start": "node dist/server.js",
     "build-server": "babel -d dist src",
+    "watch-client": "parcel watch -o index.js -d public src/client/index.js",
     "watch": "babel -w -d dist src",
     "dev": "nodemon --delay 1 dist/server.js"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/dist"
+    ]
   },
   "repository": {
     "type": "git",
@@ -33,6 +39,7 @@
     "parcel": "^1.11.0"
   },
   "dependencies": {
+    "deepmerge": "^3.0.0",
     "pug": "^2.0.3"
   }
 }
