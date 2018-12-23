@@ -45,7 +45,7 @@ document.querySelectorAll("form").forEach(function handleEachForm(form) {
       return;
     }
 
-    liff.sendMessages(messages[node.dataset.messageType]);
+    liff.sendMessages(liffMessageData);
     createResponse("success", "Message sent!");
   });
 });
