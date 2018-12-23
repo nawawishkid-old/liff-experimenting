@@ -1,16 +1,21 @@
-const parseManyFieldNames = (fields, starterObj = {}, delimiter = "_") =>
+const parseFieldNames = (fields, starterObj = {}, delimiter = "_") =>
   fields.reduce(
-    (obj, field) => parseFieldName(field, obj),
+    (obj, field) => {
+      const data = parseSingleFieldName(field, obj);
+
+      return data || obj;
+    },
     starterObj,
     delimiter
   );
 
-const parseFieldName = (field, starterObj = {}, delimiter = "_") => {
+const parseSingleFieldName = (field, starterObj = {}, delimiter = "_") => {
   const { name, value } = field;
   const splittedName = name.split(delimiter);
   // Remove form id
   const keys = splittedName.slice(1);
 
+  // Parse string to object.
   keys.reduce((obj, key, index) => {
     const isLastIndex = !keys[index + 1] ? true : false;
 
@@ -77,4 +82,4 @@ const handleNormal = (obj, key) => {
 };
 const isPropExists = (obj, key) => typeof obj[key] !== "undefined";
 
-export { parseFieldName, parseManyFieldNames };
+export { parseSingleFieldName, parseFieldNames };

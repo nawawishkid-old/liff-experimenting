@@ -1,6 +1,6 @@
-import { parseFieldName, parseManyFieldNames } from "./fieldNameParser";
+import { parseSingleFieldName, parseFieldNames } from "./fieldNameParser";
 
-describe("parseFieldName", () => {
+describe("parseSingleFieldName", () => {
   let formId = "formId";
   let keyString = `${formId}_key_subkey`;
   let value = "value";
@@ -8,7 +8,7 @@ describe("parseFieldName", () => {
   let expected = { key: { subkey: value } };
 
   test("Must remove form id", () => {
-    const result = parseFieldName(field); // here
+    const result = parseSingleFieldName(field); // here
 
     expect(result).toEqual(expected);
   });
@@ -18,17 +18,17 @@ describe("parseFieldName", () => {
     const field = { name: keyString, value };
     const expected = { array: [{ uri: value }] };
 
-    expect(parseFieldName(field)).toEqual(expected);
+    expect(parseSingleFieldName(field)).toEqual(expected);
   });
 
   test("Should throw an error if non-numeric key given after array", () => {
     const field = { name: "formId_array[]_haha", value };
 
-    expect(() => parseFieldName(field)).toThrow();
+    expect(() => parseSingleFieldName(field)).toThrow();
   });
 });
 
-describe("parseManyFieldNames", () => {
+describe("parseFieldNames", () => {
   let value = "value naja";
 
   test("Should parse multiple fields", () => {
@@ -47,6 +47,6 @@ describe("parseManyFieldNames", () => {
       }
     };
 
-    expect(parseManyFieldNames(fields)).toEqual(expected);
+    expect(parseFieldNames(fields)).toEqual(expected);
   });
 });
