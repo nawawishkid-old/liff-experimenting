@@ -47,6 +47,8 @@ document.querySelectorAll("form").forEach(function handleEachForm(form) {
 
     const sendingError = liff.sendMessages([liffMessageData]);
 
+    console.log(sendingError);
+
     if (sendingError) {
       createResponse("danger", "Unable to send message!");
     } else {
