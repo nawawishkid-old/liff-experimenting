@@ -44,12 +44,12 @@ const getMessageTypeField = messageType =>
     .get();
 
 const urlPatternArgs = [
-  "^https:\\/\\/([a-z]+\\.[a-z]{2,})+.*$",
+  "^https:\\/\\/([\\w-]+\\.[\\w-])+.*$",
   "URL must be HTTPS, HTTP not allowed."
 ];
 
 const lineActionUriPatternArgs = [
-  "^((http|https):\\/\\/([a-z]+\\.[a-z]{2,})+|line:\\/\\/([a-z]+\\/)+|tel).*$",
+  "^((http|https):\\/\\/([\\w-]+\\.[\\w-])+|line:\\/\\/([\\w-]+\\/*)+|tel).*$",
   "The available schemes are <code>http</code>, <code>https</code>, <code>line</code>, and <code>tel</code>"
 ];
 
