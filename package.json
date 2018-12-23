@@ -4,6 +4,7 @@
   "description": "This is a small web application that demonstrates the basic functionality of the [LINE Front-end Framework (LIFF)](https://developers.line.me/en/docs/liff/overview/).",
   "main": "dist/server.js",
   "scripts": {
+    "postinstall": "npm run build",
     "test": "jest ^.*\\.test\\.js$ --rootDir .",
     "build-frontend": "parcel build -o index.js -d public/assets/js src/frontend/index.js",
     "build-frontend-dev": "parcel build -o index.js -d public/assets/js --no-minify src/frontend/index.js",
@@ -11,8 +12,9 @@
     "build-backend": "babel -d dist src/backend",
     "watch-frontend": "parcel watch -o index.js -d public/assets/js src/frontend/index.js",
     "watch-backend": "babel -w -d dist src/backend",
+    "build": "npm run build-frontend && npm run build-backend",
     "dev": "npm run build-backend && nodemon --delay 2 dist/backend/server.js",
-    "start": "npm run build-frontend && npm run build-backend && npm run serve"
+    "start": "npm run serve"
   },
   "jest": {
     "testPathIgnorePatterns": [
