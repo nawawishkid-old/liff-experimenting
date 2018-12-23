@@ -1,8 +1,5 @@
-const {
-  isf,
-  createMessageFormFields,
-  urlPatternArgs
-} = require("../field-builder/helpers");
+const { isf, createMessageFormFields } = require("./helpers");
+const { urlPatternArgs } = require("./common-fields");
 
 const getDescription = res =>
   `Must be .jpeg file with maximum resolution of ${res}x${res}px  and under 1Mb in size.`;

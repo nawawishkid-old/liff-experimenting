@@ -1,4 +1,4 @@
-const { isf, createMessageFormFields } = require("../field-builder/helpers");
+const { isf, createMessageFormFields } = require("./helpers");
 
 module.exports = createMessageFormFields(
   "locationMessage",
