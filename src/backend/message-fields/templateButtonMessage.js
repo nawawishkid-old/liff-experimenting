@@ -72,11 +72,13 @@ const templateImageBackgroundColor = isf
 const templateDefaultActionType = isf
   .hidden("template_defaultAction_type")
   .value("uri")
+  .group("defaultAction")
   .get();
 const templateDefaultActionLabel = isf
   .text("template_defaultAction_label")
   .label("Default action label")
   .max(20)
+  .group("defaultAction")
   .optional()
   .get();
 const templateDefaultActionUri = isf
@@ -85,6 +87,7 @@ const templateDefaultActionUri = isf
   .pattern(...lineActionUriPatternArgs)
   .description("Link URL to be opened when tapped.")
   .max(1000)
+  .group("defaultAction")
   .optional()
   .get();
 const templateDefaultAction = [

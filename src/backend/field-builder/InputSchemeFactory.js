@@ -222,6 +222,12 @@ class InputSchemeFactory {
     );
   }
 
+  group(name) {
+    throwIfNotType("string", name);
+
+    return this.data("field-group", name);
+  }
+
   toString() {
     return this.toJSON();
   }
