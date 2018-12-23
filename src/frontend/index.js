@@ -46,7 +46,7 @@ document.querySelectorAll("form").forEach(function handleEachForm(form) {
     }
 
     liff
-      .sendMessages(liffMessageData)
+      .sendMessages([liffMessageData])
       .then(() => createResponse("success", "Message sent!"))
       .catch(err => {
         console.log("Send message error", err);
