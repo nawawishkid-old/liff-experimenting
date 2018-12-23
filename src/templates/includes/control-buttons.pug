@@ -9,6 +9,10 @@
             form(id=scheme.id novalidate)
                 each field in scheme.fields 
                     - const { attributes } = field;
+
+                    each value, key in attributes
+                        if value === true
+                            - attributes[key] = value.toString();
                     if attributes.type === 'hidden'
                         input&attributes(attributes)
                         - continue
