@@ -2,7 +2,7 @@ const http = require("http");
 const path = require("path");
 const fs = require("fs");
 const pug = require("pug");
-const DOMAIN_NAME = "https://liff-experimenting.heroku.com";
+const DOMAIN_NAME = process.env.DOMAIN_NAME || "localhost";
 const PORT = process.env.PORT || 5555;
 const fieldSchemes = require("./message-fields");
 
@@ -17,7 +17,7 @@ http
     console.log(`${req.method.toUpperCase()} - ${req.url}`);
     if (req.url === "/") {
       res.end(
-        pug.compileFile("./src/templates/index.pug")({ fieldSchemes }),
+        pug.compileFile("./src/views/index.pug")({ fieldSchemes }),
         "utf-8"
       );
 
@@ -30,7 +30,7 @@ http
       fs.readFile("./public" + req.url, (err, content) => {
         if (err) {
           if (err.code === "ENONENT") {
-            res.end(pug.compileFile("./src/templates/404.pug"), "utf-8");
+            res.end(pug.compileFile("./src/views/404.pug"), "utf-8");
           }
         }
 

@@ -5,14 +5,14 @@
   "main": "dist/server.js",
   "scripts": {
     "test": "jest ^.*\\.test\\.js$ --rootDir .",
-    "build-client": "parcel build -o index.js -d public/assets/js src/client/index.js",
-    "build-client-dev": "parcel build -o index.js -d public/assets/js --no-minify src/client/index.js",
+    "build-frontend": "parcel build -o index.js -d public/assets/js src/frontend/index.js",
+    "build-frontend-dev": "parcel build -o index.js -d public/assets/js --no-minify src/frontend/index.js",
     "serve": "node dist/server.js",
-    "build-server": "babel -d dist src",
-    "watch-client": "parcel watch -o index.js -d public/assets/js src/client/index.js",
-    "watch": "babel -w -d dist src",
-    "dev": "nodemon --delay 1 dist/server.js",
-    "start": "npm run build-client && npm run build-server && npm run serve"
+    "build-backend": "babel -d dist src/backend",
+    "watch-frontend": "parcel watch -o index.js -d public/assets/js src/frontend/index.js",
+    "watch-backend": "babel -w -d dist src/backend",
+    "dev": "npm run build-backend && nodemon --delay 2 dist/backend/server.js",
+    "start": "npm run build-frontend && npm run build-backend && npm run serve"
   },
   "jest": {
     "testPathIgnorePatterns": [
