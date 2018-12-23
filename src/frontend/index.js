@@ -102,7 +102,7 @@ document.querySelectorAll("form .field .description-icon").forEach(elem =>
   elem.addEventListener("click", function() {
     console.log("description icon clicked!");
     const notiDom = document.querySelector(
-      `form .field .field-description[data-for=${this.dataset.for}]`
+      `form .field .field-description[data-for="${this.dataset.for}"]`
     );
     const method = notiDom.classList.contains("collapse") ? "remove" : "add";
 

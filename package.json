@@ -7,7 +7,7 @@
     "build-frontend": "parcel build -o index.js -d public/assets/js src/frontend/index.js src/frontend/vconsole.js",
     "build-frontend-dev": "parcel build -o index.js -d public/assets/js --no-minify src/frontend/index.js src/frontend/vconsole.js",
     "build-backend": "babel -d dist src/backend",
-    "watch-frontend": "parcel watch -o index.js -d public/assets/js --no-minify src/frontend/index.js src/frontend/vconsole.js",
+    "watch-frontend": "parcel watch -o index.js -d public/assets/js src/frontend/index.js src/frontend/vconsole.js",
     "watch-backend": "babel -w -d dist src/backend",
     "build": "npm run build-frontend && npm run build-backend",
     "postinstall": "npm run build",

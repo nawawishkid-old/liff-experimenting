@@ -1,6 +1,23 @@
-const InputSchemeFactory = require("./InputSchemeFactory");
+const InputSchemeFactory = require("../field-builder/InputSchemeFactory");
+const fields = require("./common-fields");
 
 const isf = new InputSchemeFactory({ required: true });
+
+const createTemplateMessageFormFields = (
+  formId,
+  templateType,
+  ...fieldDataObjs
+) =>
+  createMessageFormFields(
+    formId,
+    "template",
+    isf
+      .hidden("template_type")
+      .value(templateType)
+      .get(),
+    fields.altText().get(false),
+    ...fieldDataObjs
+  );
 
 /**
  * Create form data.
@@ -43,18 +60,8 @@ const getMessageTypeField = messageType =>
     .value(messageType)
     .get();
 
-const urlPatternArgs = [
-  "^https:\\/\\/([\\w-]+\\.[\\w-])+.*$",
-  "URL must be HTTPS, HTTP not allowed."
-];
-
-const lineActionUriPatternArgs = [
-  "^((http|https):\\/\\/([\\w-]+\\.[\\w-])+|line:\\/\\/([\\w-]+\\/*)+|tel).*$",
-  "The available schemes are <code>http</code>, <code>https</code>, <code>line</code>, and <code>tel</code>"
-];
-
-function getDefaultActionUriFieldInstances(index) {
-  const name = `template_actions[]_${index}_`;
+function getDefaultActionUriFieldInstances(prefixName, index) {
+  const name = `${prefixName}_actions[]_${index}_`;
   const actionType = new InputSchemeFactory()
     .hidden(`${name}type`)
     .value("uri");
@@ -66,7 +73,7 @@ function getDefaultActionUriFieldInstances(index) {
   const actionUri = new InputSchemeFactory()
     .url(`${name}uri`)
     .label("Action link URL")
-    .pattern(...lineActionUriPatternArgs)
+    .pattern(...fields.lineActionUriPatternArgs)
     .description("Link URL to be opened when tapped.")
     .max(1000)
     .required();
@@ -78,7 +85,6 @@ module.exports = {
   isf,
   getMessageTypeField,
   createMessageFormFields,
-  urlPatternArgs,
-  lineActionUriPatternArgs,
+  createTemplateMessageFormFields,
   getDefaultActionUriFieldInstances
 };

@@ -11,10 +11,12 @@ class InputSchemeFactory {
     this._resetFieldData();
   }
 
-  get() {
+  get(clear = true) {
     const data = { ...this._data };
 
-    this._resetFieldData();
+    if (clear) {
+      this._resetFieldData();
+    }
 
     return data;
   }
