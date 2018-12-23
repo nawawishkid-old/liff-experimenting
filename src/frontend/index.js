@@ -45,15 +45,13 @@ document.querySelectorAll("form").forEach(function handleEachForm(form) {
       return;
     }
 
-    const sendingError = liff.sendMessages([liffMessageData]);
-
-    console.log(sendingError);
-
-    if (sendingError) {
-      createResponse("danger", "Unable to send message!");
-    } else {
-      createResponse("success", "Message sent!");
-    }
+    liff
+      .sendMessages(liffMessageData)
+      .then(() => createResponse("success", "Message sent!"))
+      .catch(err => {
+        console.log("Send message error", err);
+        createResponse("danger", "Unable to send message!");
+      });
   });
 });
 
