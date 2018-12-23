@@ -1,6 +1,6 @@
 .cache/
 dist/
-public/
+public/assets/js/
 
 # Logs
 logs
