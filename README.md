@@ -19,3 +19,7 @@ docker run -p <your_port>:80 -d <image_name>
 ```
 
 Now, go to `localhost:<your_port>` on your favorite browser.
+
+## Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nawawishkid/liff-experimenting)
