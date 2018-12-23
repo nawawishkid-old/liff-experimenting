@@ -32,10 +32,7 @@
     "url": "https://github.com/nawawishkid/liff-experimenting/issues"
   },
   "homepage": "https://github.com/line/line-liff-starter#readme",
-  "devDependencies": {},
-  "dependencies": {
-    "deepmerge": "^3.0.0",
-    "pug": "^2.0.3",
+  "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.2.1",
@@ -44,5 +41,9 @@
     "babel-preset-env": "^1.7.0",
     "jest": "^23.6.0",
     "parcel": "^1.11.0"
+  },
+  "dependencies": {
+    "deepmerge": "^3.0.0",
+    "pug": "^2.0.3"
   }
 }
