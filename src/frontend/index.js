@@ -34,7 +34,23 @@ document.querySelectorAll("form").forEach(function handleEachForm(form) {
       return;
     }
 
-    const liffMessageData = fieldNameParser.parseManyFieldNames(fields);
+    // Array of group name that some of its fields' value is empty.
+    const rejectGroups = fields
+      .filter(f => f.dataset.fieldGroup)
+      .reduce((reject, f) => {
+        const name = f.dataset.fieldGroup;
+
+        if (f.value === "" && !reject.includes(name)) {
+          reject.push(name);
+        }
+
+        return reject;
+      }, []);
+    // Exclude fields that has empty value and its group name has been listed in rejectGroups
+    const fileteredFields = fields.filter(
+      f => f.value !== "" && !rejectGroups.includes(f.dataset.fieldGroup)
+    );
+    const liffMessageData = fieldNameParser.parseFieldNames(fileteredFields);
 
     console.log("The form is submitted!");
     console.log("liffMessageData: ", liffMessageData);
