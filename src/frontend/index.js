@@ -40,13 +40,18 @@ document.querySelectorAll("form").forEach(function handleEachForm(form) {
     console.log("liffMessageData: ", liffMessageData);
 
     if (typeof liff.sendMessages === "undefined") {
-      createResponse("warning", "Could not send message!");
+      createResponse("warning", "Message can only be sent in LIFF app!");
 
       return;
     }
 
-    liff.sendMessages(liffMessageData);
-    createResponse("success", "Message sent!");
+    const sendingError = liff.sendMessages([liffMessageData]);
+
+    if (sendingError) {
+      createResponse("danger", "Unable to send message!");
+    } else {
+      createResponse("success", "Message sent!");
+    }
   });
 });
 
