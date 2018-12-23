@@ -7,7 +7,7 @@
     "postinstall": "npm run build",
     "test": "jest ^.*\\.test\\.js$ --rootDir .",
     "build-frontend": "parcel build -o index.js -d public/assets/js src/frontend/index.js src/frontend/vconsole.js",
-    "build-frontend-dev": "parcel build -o index.js -d public/assets/js --no-minify src/frontend/index.js",
+    "build-frontend-dev": "parcel build -o index.js -d public/assets/js --no-minify src/frontend/index.js src/frontend/vconsole.js",
     "serve": "node dist/server.js",
     "build-backend": "babel -d dist src/backend",
     "watch-frontend": "parcel watch -o index.js -d public/assets/js src/frontend/index.js",
