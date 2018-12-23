@@ -1,0 +1,106 @@
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-flex.center-both {
+  justify-content: center;
+  align-items: center;
+}
+
+.d-flex.space-between {
+  justify-content: space-between;
+}
+
+.pos-relative {
+  position: relative;
+}
+
+.pos-absolute {
+  position: absolute;
+}
+
+.pos-fixed {
+  position: fixed;
+}
+
+.collapsible {
+  max-height: 200px;
+  overflow: hidden;
+  transition: max-height 0.4s;
+}
+
+.collapsible.collapse {
+  max-height: 0px;
+}
+
+.responses {
+  bottom: 50px;
+  z-index: 100;
+  left: 0;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.response {
+  opacity: 0;
+  box-shadow: 0 10px 20px -10px;
+  pointer-events: initial;
+  transform: translateY(20px);
+  transition: opacity 0.4s, transform 0.8s;
+}
+
+.response.active {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.level-item {
+  margin: 1em;
+}
+
+#profile-wrapper {
+  margin-bottom: 2em;
+}
+
+figure#profile-image {
+  margin: auto;
+  margin-bottom: 1em;
+  border-radius: 50%;
+}
+
+#app {
+  padding: 1em;
+}
+
+#button-group {
+  max-width: 600px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+#initializer-background {
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#forms-wrapper {
+  padding: 2em 0;
+}
+
+.social-logo {
+  margin: 1em;
+}
+
+.field-info .required-status {
+  margin-left: 5px;
+}
