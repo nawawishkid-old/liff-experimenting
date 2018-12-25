@@ -3,7 +3,7 @@
     form(id=scheme.id novalidate)
         each field in scheme.normalFields
             include field.pug 
-        if scheme.advancedFields
+        if scheme.advancedFields.length > 0
             include advanced-field.pug 
 
         //- Submit button
