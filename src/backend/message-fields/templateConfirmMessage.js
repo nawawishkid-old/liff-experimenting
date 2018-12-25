@@ -19,6 +19,5 @@ const templateActions = getDefaultActionUriFieldInstances(0).map(field =>
 module.exports = createTemplateMessageFormFields(
   "templateConfirmMessage",
   "confirm",
-  text,
-  ...templateActions
+  { normalFields: [text, ...templateActions] }
 );

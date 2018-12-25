@@ -4,9 +4,10 @@ Try at: [line://app/1632266434-nNxB6Vv7](line://app/1632266434-nNxB6Vv7)
 
 # TODO
 
-- [ ] Hide optional fields by default.
-- [ ] Visually group firles that need to be together e.g. fields for action and column.
+- [x] ~~Hide optional fields by default.~~
+- [ ] Visually group fields that need to be together e.g. fields for action and column.
 - [ ] Add clone fields button.
+- [ ] Create form data structure to hold data for user interface.
 
 # Deployment
 

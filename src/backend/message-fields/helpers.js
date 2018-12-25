@@ -6,18 +6,19 @@ const isf = new InputSchemeFactory({ required: true });
 const createTemplateMessageFormFields = (
   formId,
   templateType,
-  ...fieldDataObjs
+  { normalFields, ...rest }
 ) =>
-  createMessageFormFields(
-    formId,
-    "template",
-    isf
-      .hidden("template_type")
-      .value(templateType)
-      .get(),
-    fields.altText().get(false),
-    ...fieldDataObjs
-  );
+  createMessageFormFields(formId, "template", {
+    normalFields: [
+      isf
+        .hidden("template_type")
+        .value(templateType)
+        .get(),
+      fields.altText().get(false),
+      ...normalFields
+    ],
+    ...rest
+  });
 
 /**
  * Create form data.
@@ -28,23 +29,29 @@ const createTemplateMessageFormFields = (
  *
  * @return {DataForForm} DataForForm object.
  */
-const createMessageFormFields = (formId, messageType, ...fieldDataObjs) => {
-  const fields = [getMessageTypeField(messageType), ...fieldDataObjs].map(
-    field => {
-      // console.log("field: ", field);
-      /**
-       * Field name begins with its form's id, followed by the key of each level of Line message object.
-       * All are separated by underscore.
-       */
-      const createdId = `${formId}_${field.attributes.name}`;
-
-      field.attributes.id = field.attributes.name = createdId;
-
-      return field;
-    }
+const createMessageFormFields = (formId, messageType, options) => {
+  const { normalFields, advancedFields } = options;
+  const addFieldId = getAddFieldIdCallback(formId);
+  const nfs = [getMessageTypeField(messageType), ...normalFields].map(
+    addFieldId
   );
+  const afs = Array.isArray(advancedFields)
+    ? advancedFields.map(addFieldId)
+    : [];
 
-  return { id: formId, fields };
+  return { id: formId, normalFields: nfs, advancedFields: afs };
+};
+
+const getAddFieldIdCallback = formId => field => {
+  /**
+   * Field name begins with its form's id, followed by the key of each level of Line message object.
+   * All are separated by underscore.
+   */
+  const createdId = `${formId}_${field.attributes.name}`;
+
+  field.attributes.id = field.attributes.name = createdId;
+
+  return field;
 };
 
 /**

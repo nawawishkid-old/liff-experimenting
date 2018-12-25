@@ -16,12 +16,15 @@ const templateActions = getDefaultActionUriFieldInstances("template", 0).map(
 module.exports = createTemplateMessageFormFields(
   "templateButtonMessage",
   "buttons",
-  fields.templateText().get(),
-  fields.templateTitle().get(),
-  fields.templateThumbnailImageUrl().get(),
-  fields.templateImageAspectRatio().get(),
-  fields.templateImageSize().get(),
-  fields.templateImageBackgroundColor().get(),
-  ...fields.getDefaultAction("template"),
-  ...templateActions
+  {
+    normalFields: [fields.templateText().get(), ...templateActions],
+    advancedFields: [
+      fields.templateTitle().get(),
+      fields.templateThumbnailImageUrl().get(),
+      fields.templateImageAspectRatio().get(),
+      fields.templateImageSize().get(),
+      fields.templateImageBackgroundColor().get(),
+      ...fields.getDefaultAction("template")
+    ]
+  }
 );

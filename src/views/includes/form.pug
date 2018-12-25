@@ -1,0 +1,7 @@
+#forms-wrapper
+    each messageType in ['text', 'image', 'templateButton', 'templateConfirm', 'templateCarousel', 'templateImageCarousel', 'location']
+        - const scheme = fieldSchemes[messageType];
+        if typeof scheme === 'undefined'
+            - continue
+
+        include form/form.pug 

@@ -32,7 +32,7 @@
 }
 
 .collapsible {
-  max-height: 200px;
+  /* max-height: 200px; */
   overflow: hidden;
   transition: max-height 0.4s;
 }
@@ -103,4 +103,8 @@ figure#profile-image {
 
 .field-info .required-status {
   margin-left: 5px;
+}
+
+.advanced-fields-trigger {
+  margin: 2em 0;
 }

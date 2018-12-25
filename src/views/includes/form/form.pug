@@ -1,0 +1,12 @@
+.box
+    .title.is-4 #{messageType} Message
+    form(id=scheme.id novalidate)
+        each field in scheme.normalFields
+            include field.pug 
+        if scheme.advancedFields
+            include advanced-field.pug 
+
+        //- Submit button
+        .field
+            .control
+                button.button.is-outlined.is-link.submit-button(data-message-type=messageType)= 'send ' + messageType

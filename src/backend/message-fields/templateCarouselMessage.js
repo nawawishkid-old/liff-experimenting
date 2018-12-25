@@ -5,7 +5,11 @@ const templateCarouselColumns = require("./templateCarouselColumns");
 module.exports = createTemplateMessageFormFields(
   "templateCarouselMessage",
   "carousel",
-  fields.templateImageAspectRatio().get(),
-  fields.templateImageSize().get(),
-  ...templateCarouselColumns
+  {
+    advancedFields: [
+      fields.templateImageAspectRatio().get(),
+      fields.templateImageSize().get()
+    ],
+    normalFields: templateCarouselColumns
+  }
 );

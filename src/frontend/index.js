@@ -13,6 +13,8 @@ window.onload = () => {
         .classList.remove("collapse");
     }
   );
+
+  initAllCollapsibleElements();
 };
 
 // Handle all forms submission.
@@ -159,4 +161,55 @@ function initProfileUi() {
     .catch(err => {
       console.log(err);
     });
+}
+
+function initAllCollapsibleElements() {
+  document
+    .querySelectorAll(".collapsible-trigger[data-trigger-for]")
+    .forEach(elem =>
+      collapsible(
+        elem,
+        document.querySelector(
+          `.collapsible[data-collapsible-id="${elem.dataset.triggerFor}"`
+        ),
+        elem.dataset.collapsibleBehavior || "toggle"
+      )
+    );
+}
+
+function collapsible(trigger, target, behavior = "toggle") {
+  let listener;
+  const setMaxHeight = (height = null) =>
+    (target.style.maxHeight =
+      (typeof height !== "number" ? target.scrollHeight : height) + "px");
+
+  switch (behavior) {
+    case "toggle":
+      listener = () => {
+        let method;
+
+        if (target.classList.contains("collapse")) {
+          method = "remove";
+          setMaxHeight();
+        } else {
+          setMaxHeight(0);
+          method = "add";
+        }
+
+        target.classList[method]("collapse");
+      };
+      break;
+
+    case "open":
+      listener = () => setMaxHeight() && target.classList.remove("collapse");
+      break;
+
+    case "close":
+      listener = () => setMaxHeight(0) && target.classList.add("collapse");
+
+    default:
+      break;
+  }
+
+  trigger.addEventListener("click", listener);
 }

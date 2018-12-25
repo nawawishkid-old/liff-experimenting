@@ -1,0 +1,8 @@
+- const collapsibleName = `${scheme.id}_advancedFields`
+.advanced-fields-trigger.collapsible-trigger(data-trigger-for=collapsibleName data-collapsible-behavior="toggle")
+    | Advanced
+    span.icon
+        i.fas.fa-chevron-down
+.advanced-fields.collapsible.collapse(data-collapsible-id=collapsibleName)
+    each field in scheme.advancedFields
+        include field.pug

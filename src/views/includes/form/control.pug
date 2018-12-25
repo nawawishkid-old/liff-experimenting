@@ -1,0 +1,15 @@
+.control
+    if field.type === 'select'
+        select.select&attributes(attributes)
+            each option in field.options
+                option(value=option.value)= option.title
+    else if field.type === 'textarea'
+        textarea.textarea&attributes(attributes)
+    else
+        //- define Bulma's form elements class
+        if ['checkbox', 'radio', 'file'].some(t => t === attributes.type)
+            - attributes.class = attributes.type
+        else
+            - attributes.class = 'input'
+
+        input&attributes(attributes)
